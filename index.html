@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KKS BOT MAKER - Build Powerful Telegram Bots</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <style>
+        :root {
+            --primary: #6e45e2;
+            --secondary: #88d3ce;
+            --accent: #ff7e5f;
+            --dark: #0f0f1a;
+            --darker: #090912;
+            --light: #f0f0f0;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-highlight: rgba(255, 255, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background-color: var(--glass);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(110, 69, 226, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: -1;
+            animation: pulse 15s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(25%, 25%);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(110, 69, 226, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(110, 69, 226, 0.6);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--light);
+        }
+
+        .cta-button.secondary:hover {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+        }
+
+        /* Features Section */
+        .section {
+            padding: 6rem 5%;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--glass);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--glass-highlight);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        /* Pricing Section */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--glass);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--glass-highlight);
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .pricing-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .pricing-period {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--accent);
+            color: white;
+            padding: 0.2rem 2rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transform: rotate(45deg);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, rgba(110, 69, 226, 0.1), rgba(136, 211, 206, 0.1)));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M30,10 L50,30 L70,10" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></svg>');
+            background-size: 50px 50px;
+            opacity: 0.5;
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+
+        .cta-card {
+            background: var(--glass);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .cta-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--glass-highlight);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, rgba(15, 15, 26, 0.9), rgba(9, 9, 18, 0.9));
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary), var(--accent));
+            border-radius: 10px;
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 5%;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .cta-button {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#" class="logo">KKS BOT MAKER</a>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#community">Community</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="fade-in">Welcome to KKS Bot Maker</h1>
+        <p class="fade-in">Your One-Stop Platform to Build Powerful Telegram Bots!</p>
+        <div class="fade-in" style="display: flex; flex-wrap: wrap; justify-content: center;">
+            <a href="https://t.me/Kksautopaymaker_bot" class="cta-button">Start Building</a>
+            <a href="#pricing" class="cta-button secondary">View Plans</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <h2 class="section-title">Discover More, Do More</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; opacity: 0.9;">
+            Create your own custom Telegram bots within minutes using our easy-to-use and powerful admin panel — no coding skills required!<br>
+            Ideal for creators, influencers, businesses, and automation lovers.
+        </p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3 class="feature-title">No Coding Required</h3>
+                <p>Build bots with our intuitive visual interface without writing a single line of code.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Powerful Automation</h3>
+                <p>Automate messages, responses, and workflows to save time and engage your audience.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3 class="feature-title">Secure & Reliable</h3>
+                <p>Enterprise-grade security and 99.9% uptime guarantee for your bots.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Features Section -->
+    <section class="section" style="background: linear-gradient(135deg, rgba(110, 69, 226, 0.05), rgba(9, 9, 18, 0.8));">
+        <h2 class="section-title">Unlock Premium Features</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; opacity: 0.9;">
+            Upgrade to KKS Maker Premium and get access to exclusive tools:
+        </p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">✅</div>
+                <h3 class="feature-title">No Developer Mode</h3>
+                <p>Build advanced bots without needing developer mode access.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛎️</div>
+                <h3 class="feature-title">24/7 Priority Support</h3>
+                <p>Get dedicated support whenever you need help with your bots.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📢</div>
+                <h3 class="feature-title">Free Promotion</h3>
+                <p>Get your bot featured on our verified bots channel.</p>
+            </div>           
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3 class="feature-title">Bot Analytics</h3>
+                <p>Track your bot's performance with detailed statistics.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section" id="pricing">
+        <h2 class="section-title">Premium Pricing – Affordable & Flexible</h2>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3 class="pricing-title">1 Week Plan</h3>
+                <div class="pricing-price">₹10</div>
+                <ul class="pricing-features">
+                    <li>7-day access</li>
+                    <li>All premium features</li>
+                    <li>Basic support</li>
+                </ul>
+                <a href="https://t.me/Kksautopaymaker_bot" class="cta-button">Get Started</a>
+            </div>
+            <div class="pricing-card">
+                <h3 class="pricing-title">1 Month Plan</h3>
+                <div class="pricing-price">₹30</div>
+                <ul class="pricing-features">
+                    <li>30-day access</li>
+                    <li>All premium features</li>
+                    <li>Priority support</li>
+                </ul>
+                <a href="https://t.me/Kksautopaymaker_bot" class="cta-button">Get Started</a>
+            </div>
+            <div class="pricing-card" style="border: 1px solid var(--accent);">
+                <div class="popular-badge">POPULAR</div>
+                <h3 class="pricing-title">6 Month Plan</h3>
+                <div class="pricing-price">₹100 <span class="pricing-period">(Save 20%)</span></div>
+                <ul class="pricing-features">
+                    <li>6-month access</li>
+                    <li>All premium features</li>
+                    <li>Priority support</li>
+                    <li>Free promotion</li>
+                </ul>
+                <a href="https://t.me/Kksautopaymaker_bot" class="cta-button">Get Started</a>
+            </div>
+            <div class="pricing-card">
+                <h3 class="pricing-title">1 Year Plan</h3>
+                <div class="pricing-price">₹200 <span class="pricing-period">(Save 40%)</span></div>
+                <ul class="pricing-features">
+                    <li>1-year access</li>
+                    <li>All premium features</li>
+                    <li>VIP support</li>
+                    <li>Free promotion</li>
+                </ul>
+                <a href="https://t.me/Kksautopaymaker_bot" class="cta-button">Get Started</a>
+            </div>
+            <div class="pricing-card">
+                <h3 class="pricing-title">Lifetime Plan</h3>
+                <div class="pricing-price">₹500</div>
+                <ul class="pricing-features">
+                    <li>Lifetime access</li>
+                    <li>All premium features</li>
+                    <li>VIP support</li>
+                    <li>Free promotion</li>
+                    <li>Early access to new features</li>
+                </ul>
+                <a href="https://t.me/Kksautopaymaker_bot" class="cta-button">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community CTA -->
+    <section class="cta-section" id="community">
+        <h2 class="section-title">KKS Verified Channel</h2>
+        <p style="max-width: 700px; margin: 0 auto 2rem; opacity: 0.9;">
+            Be part of our official KKS Verified Channel – trusted by the community.<br>
+            Stay updated with the latest bot releases, new features, and promotions.
+        </p>
+        
+        <div class="cta-grid">
+            <div class="cta-card">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Join Our Community</h3>
+                <p style="margin-bottom: 1.5rem; opacity: 0.8;">Join 3.5K+ fans & followers who are building and growing with KKS Bot Maker!</p>
+                <a href="https://t.me/Kks_Verified_bot" class="cta-button">📢 Join Channel</a>
+            </div>
+            <div class="cta-card">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Start Building Today</h3>
+                <p style="margin-bottom: 1.5rem; opacity: 0.8;">Ready to create your own bot right now?</p>
+                <a href="https://t.me/Kksautopaymaker_bot" class="cta-button">🚀 Start Building</a>
+            </div>
+            <div class="cta-card" id="contact">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Need Help?</h3>
+                <p style="margin-bottom: 1.5rem; opacity: 0.8;">Our support team is ready to assist you with any questions.</p>
+                <a href="https://t.me/Thegamingkksyt" class="cta-button secondary">🛠 Contact Support</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#community">Community</a>
+            <a href="#contact">Contact</a>
+            <a href="https://t.me/Kks_Verified_bot">Channel</a>
+            <a href="https://t.me/Kksautopaymaker_bot">Bot</a>
+        </div>
+        <div class="social-links">
+            <a href="https://t.me/Thegamingkksyt" aria-label="Telegram">📞</a>
+            <a href="https://t.me/Kks_Verified_bot" aria-label="Channel">📢</a>
+        </div>
+        <p class="copyright">© 2023 KKS BOT MAKER. All rights reserved.</p>
+    </footer>
+
+    <!-- Firebase Analytics -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+            
+        const firebaseConfig = {
+            apiKey: "AIzaSyBagY_jYG64p36CIKfDJPD_pfjjalsqNjc",
+            authDomain: "kingo-f6d41.firebaseapp.com",
+            databaseURL: "https://kingo-f6d41-default-rtdb.firebaseio.com",
+            projectId: "kingo-f6d41",
+            storageBucket: "kingo-f6d41.appspot.com",
+            messagingSenderId: "1039695997153",
+            appId: "1:1039695997153:web:5111832022b910a019afa0",
+            measurementId: "G-L5MDHLR92Z"
+        };
+            
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+
+    <!-- Scroll Reveal Animation -->
+    <script>
+        ScrollReveal().reveal('.feature-card', { 
+            delay: 200,
+            distance: '20px',
+            origin: 'bottom',
+            interval: 100
+        });
+
+        ScrollReveal().reveal('.pricing-card', { 
+            delay: 200,
+            distance: '20px',
+            origin: 'bottom',
+            interval: 100
+        });
+
+        ScrollReveal().reveal('.cta-card', { 
+            delay: 200,
+            distance: '20px',
+            origin: 'bottom',
+            interval: 100
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
